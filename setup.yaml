@@ -1,0 +1,5 @@
+---
+- hosts: "{{ host_tag }}"
+  roles:
+    - { role: docker-setup, tags: ['docker-setup'] }
+    - { role: webserver, tags: ['webserver'] }

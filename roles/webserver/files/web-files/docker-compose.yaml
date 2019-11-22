@@ -1,0 +1,5 @@
+nginx:
+  container_name: web-app
+  build: .
+  ports:
+   - "80:80"

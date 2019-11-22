@@ -1,0 +1,26 @@
+- block:
+  - name: Install a list of packages
+    yum:
+      name:
+        - docker
+        - gcc
+        - python-pip
+      state: present
+
+  - name: Add user to docker group
+    user: name={{ docker_user }} groups=docker append=yes
+
+  - name: Install Docker Compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+      dest: "{{ docker_compose_path }}"
+      mode: 0755
+    run_once: true
+
+  - name: Install pip-docker-compose
+    pip: name=docker-compose
+
+  - name:  Ensure docker is started and enabled
+    service: name=docker state=started enabled=yes
+  
+  become: yes

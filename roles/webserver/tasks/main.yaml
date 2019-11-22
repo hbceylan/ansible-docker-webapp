@@ -1,0 +1,13 @@
+---
+- name: Copy web files
+  copy:
+    src: ./files/web-files
+    dest: /tmp/
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: /tmp/web-files
+    build: yes
+    recreate: always
+    nocache: yes
+  become: yes
